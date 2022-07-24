@@ -55,6 +55,20 @@ class DashboardCard extends StatelessWidget {
                 state.toUpperCase(),
                 style: stateFont,
               ),
+              SizedBox(
+                height: sh.hHelper(0.5),
+              ),
+              port != 0
+                  ? RichText(
+                      text: TextSpan(
+                        style: portTextFont,
+                        children: <TextSpan>[
+                          TextSpan(text: '${portType.toUpperCase()} port at '),
+                          TextSpan(text: '$port', style: portFont),
+                        ],
+                      ),
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),

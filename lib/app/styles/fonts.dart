@@ -25,3 +25,19 @@ TextStyle stateFont = GoogleFonts.montserrat(
     fontSize: 14,
   ),
 );
+
+TextStyle portTextFont = GoogleFonts.montserrat(
+  textStyle: const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+  ),
+);
+
+TextStyle portFont = GoogleFonts.montserrat(
+  textStyle: TextStyle(
+    color: primaryYellow,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  ),
+);
