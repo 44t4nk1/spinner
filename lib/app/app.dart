@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spinner/app/features/dashboard/presentation/screens/dashboard_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,11 +13,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text("Hello"),
-        ),
-      ),
+      home: DashboardScreen(),
     );
   }
 }
