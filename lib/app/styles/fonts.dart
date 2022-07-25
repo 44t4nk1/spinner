@@ -41,3 +41,11 @@ TextStyle portFont = GoogleFonts.montserrat(
     fontSize: 14,
   ),
 );
+
+TextStyle statusFont = GoogleFonts.montserrat(
+  textStyle: const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
+  ),
+);

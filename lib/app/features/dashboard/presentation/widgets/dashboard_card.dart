@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:spinner/app/helpers/size.dart';
 import 'package:spinner/app/styles/colors.dart';
 import 'package:spinner/app/styles/fonts.dart';
@@ -44,9 +44,21 @@ class DashboardCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                name,
-                style: nameFont,
+              Row(
+                children: [
+                  Text(
+                    name,
+                    style: nameFont,
+                  ),
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Icon(
+                      CupertinoIcons.xmark,
+                      color: primaryRed,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: sh.hHelper(0.5),
@@ -69,6 +81,40 @@ class DashboardCard extends StatelessWidget {
                       ),
                     )
                   : const SizedBox(),
+              SizedBox(
+                height: sh.hHelper(0.5),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: portTextFont,
+                  children: <TextSpan>[
+                    const TextSpan(text: 'Image '),
+                    TextSpan(text: image.toUpperCase(), style: portFont),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: sh.hHelper(0.5),
+              ),
+              RichText(
+                text: TextSpan(
+                  style: portTextFont,
+                  children: <TextSpan>[
+                    const TextSpan(text: 'Created at '),
+                    TextSpan(
+                        text:
+                            ("${DateTime.fromMillisecondsSinceEpoch(createdAt * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(createdAt * 1000).minute}, ${DateTime.fromMillisecondsSinceEpoch(createdAt * 1000).day}-${DateTime.fromMillisecondsSinceEpoch(createdAt * 1000).month}-${DateTime.fromMillisecondsSinceEpoch(createdAt * 1000).year}"),
+                        style: portFont),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: sh.hHelper(0.5),
+              ),
+              Text(
+                status,
+                style: statusFont,
+              ),
             ],
           ),
         ),
