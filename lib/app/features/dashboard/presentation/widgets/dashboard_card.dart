@@ -81,9 +81,11 @@ class DashboardCard extends StatelessWidget {
                       ),
                     )
                   : const SizedBox(),
-              SizedBox(
-                height: sh.hHelper(0.5),
-              ),
+              port != 0
+                  ? SizedBox(
+                      height: sh.hHelper(0.5),
+                    )
+                  : const SizedBox(),
               RichText(
                 text: TextSpan(
                   style: portTextFont,
