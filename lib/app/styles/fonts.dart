@@ -10,6 +10,14 @@ TextStyle appBarFont = GoogleFonts.montserrat(
   ),
 );
 
+TextStyle buttonFont = GoogleFonts.montserrat(
+  textStyle: const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
+    fontSize: 18,
+  ),
+);
+
 TextStyle nameFont = GoogleFonts.montserrat(
   textStyle: const TextStyle(
     color: Colors.white,
