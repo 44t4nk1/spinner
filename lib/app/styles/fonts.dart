@@ -26,6 +26,14 @@ TextStyle nameFont = GoogleFonts.montserrat(
   ),
 );
 
+TextStyle hintFont = GoogleFonts.montserrat(
+  textStyle: TextStyle(
+    color: secondaryBlue,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  ),
+);
+
 TextStyle stateFont = GoogleFonts.montserrat(
   textStyle: TextStyle(
     color: primaryGreen,

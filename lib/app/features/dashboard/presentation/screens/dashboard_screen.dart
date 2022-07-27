@@ -8,6 +8,9 @@ import 'package:spinner/app/styles/fonts.dart';
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({Key? key}) : super(key: key);
 
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController imageController = TextEditingController();
+
   final List<Map<String, dynamic>> dockers = const [
     {
       "id": "f5f83c51682790011659c352ae5716f56fa62eee921da45a46e14f25ae57f607",
@@ -66,8 +69,94 @@ class DashboardScreen extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFormField(),
+                  Text(
+                    "Enter container details",
+                    style: nameFont,
+                  ),
+                  SizedBox(
+                    height: sh.hHelper(2),
+                  ),
+                  TextFormField(
+                    controller: nameController,
+                    cursorColor: secondaryBlue,
+                    style: nameFont,
+                    decoration: InputDecoration(
+                      hintText: "Name",
+                      hintStyle: hintFont,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: secondaryBlue,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: secondaryBlue,
+                        ),
+                      ),
+                      filled: true,
+                    ),
+                  ),
+                  SizedBox(
+                    height: sh.hHelper(2),
+                  ),
+                  TextFormField(
+                    controller: imageController,
+                    cursorColor: secondaryBlue,
+                    style: nameFont,
+                    decoration: InputDecoration(
+                      hintText: "Image",
+                      hintStyle: hintFont,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: secondaryBlue,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: secondaryBlue,
+                        ),
+                      ),
+                      filled: true,
+                    ),
+                  ),
+                  SizedBox(
+                    height: sh.hHelper(2),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      height: sh.hHelper(6),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: secondaryBlue,
+                        border: Border.all(
+                          color: secondaryBlue,
+                          width: 2,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(100),
+                        ),
+                      ),
+                      child: Text(
+                        "Create Container",
+                        style: buttonFont,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
