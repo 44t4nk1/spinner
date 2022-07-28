@@ -24,49 +24,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController imageController = TextEditingController();
 
-  // final List<Map<String, dynamic>> dockers = const [
-  //   {
-  //     "id": "f5f83c51682790011659c352ae5716f56fa62eee921da45a46e14f25ae57f607",
-  //     "name": "/upbeat_dewdney",
-  //     "image": "ubuntu",
-  //     "created": 1658661916,
-  //     "port": 0,
-  //     "portType": "NA",
-  //     "state": "running",
-  //     "status": "Up 5 minutes"
-  //   },
-  //   {
-  //     "id": "8fd025f4da42f0694ffcf2cbd3ba04f82df9e7b8fff4c6784e6588bb3dcf88cb",
-  //     "name": "/frosty_tereshkova",
-  //     "image": "redis",
-  //     "created": 1658660078,
-  //     "port": 6379,
-  //     "portType": "tcp",
-  //     "state": "running",
-  //     "status": "Up 36 minutes"
-  //   },
-  //   {
-  //     "id": "f5f83c51682790011659c352ae5716f56fa62eee921da45a46e14f25ae57f607",
-  //     "name": "/upbeat_dewdney",
-  //     "image": "ubuntu",
-  //     "created": 1658661916,
-  //     "port": 0,
-  //     "portType": "NA",
-  //     "state": "running",
-  //     "status": "Up 5 minutes"
-  //   },
-  //   {
-  //     "id": "8fd025f4da42f0694ffcf2cbd3ba04f82df9e7b8fff4c6784e6588bb3dcf88cb",
-  //     "name": "/frosty_tereshkova",
-  //     "image": "redis",
-  //     "created": 1658660078,
-  //     "port": 6379,
-  //     "portType": "tcp",
-  //     "state": "running",
-  //     "status": "Up 36 minutes"
-  //   }
-  // ];
-
   final _formKey = GlobalKey<FormState>();
 
   AlertDialog alertDialog() {
@@ -186,7 +143,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Stack(
           children: [
-            Column(
+            ListView(
               children: [
                 for (int i = 0; i < dockers.length; i++)
                   Padding(
