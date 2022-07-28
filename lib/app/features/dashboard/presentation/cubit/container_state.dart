@@ -11,10 +11,14 @@ class ContainerInitial extends ContainerState {}
 
 class ContainerLoading extends ContainerState {}
 
-class ContainerFailure extends ContainerState {}
+class ContainerFailure extends ContainerState {
+  final String error;
+
+  const ContainerFailure({required this.error});
+}
 
 class ContainersSuccess extends ContainerState {
-  final List<Container> data;
+  final List<MyContainer> data;
 
   const ContainersSuccess({required this.data});
 }

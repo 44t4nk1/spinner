@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
         create: (_) => ContainerCubit(),
-        child: DashboardScreen(),
+        child: const DashboardScreen(),
       ),
     );
   }

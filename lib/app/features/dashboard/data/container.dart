@@ -4,12 +4,32 @@
 
 import 'dart:convert';
 
-Container containerFromJson(String str) => Container.fromJson(json.decode(str));
+MyContainerList myContainerListFromJson(String str) =>
+    MyContainerList.fromJson(json.decode(str));
 
-String containerToJson(Container data) => json.encode(data.toJson());
+String myContainerListToJson(MyContainerList data) =>
+    json.encode(data.toJson());
 
-class Container {
-  Container({
+class MyContainerList {
+  MyContainerList({
+    required this.result,
+  });
+
+  List<MyContainer> result;
+
+  factory MyContainerList.fromJson(Map<String, dynamic> json) =>
+      MyContainerList(
+        result: List<MyContainer>.from(
+            json["result"].map((x) => MyContainer.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "result": List<dynamic>.from(result.map((x) => x.toJson())),
+      };
+}
+
+class MyContainer {
+  MyContainer({
     required this.id,
     required this.name,
     required this.image,
@@ -29,7 +49,7 @@ class Container {
   String state;
   String status;
 
-  factory Container.fromJson(Map<String, dynamic> json) => Container(
+  factory MyContainer.fromJson(Map<String, dynamic> json) => MyContainer(
         id: json["id"],
         name: json["name"],
         image: json["image"],

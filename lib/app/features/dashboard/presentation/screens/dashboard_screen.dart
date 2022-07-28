@@ -1,58 +1,71 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spinner/app/features/dashboard/presentation/cubit/container_cubit.dart';
 import 'package:spinner/app/features/dashboard/presentation/widgets/dashboard_card.dart';
 import 'package:spinner/app/helpers/size.dart';
 import 'package:spinner/app/styles/colors.dart';
 import 'package:spinner/app/styles/fonts.dart';
 
-class DashboardScreen extends StatelessWidget {
-  DashboardScreen({Key? key}) : super(key: key);
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<ContainerCubit>(context).fetchContainers();
+    super.initState();
+  }
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController imageController = TextEditingController();
 
-  final List<Map<String, dynamic>> dockers = const [
-    {
-      "id": "f5f83c51682790011659c352ae5716f56fa62eee921da45a46e14f25ae57f607",
-      "name": "/upbeat_dewdney",
-      "image": "ubuntu",
-      "created": 1658661916,
-      "port": 0,
-      "portType": "NA",
-      "state": "running",
-      "status": "Up 5 minutes"
-    },
-    {
-      "id": "8fd025f4da42f0694ffcf2cbd3ba04f82df9e7b8fff4c6784e6588bb3dcf88cb",
-      "name": "/frosty_tereshkova",
-      "image": "redis",
-      "created": 1658660078,
-      "port": 6379,
-      "portType": "tcp",
-      "state": "running",
-      "status": "Up 36 minutes"
-    },
-    {
-      "id": "f5f83c51682790011659c352ae5716f56fa62eee921da45a46e14f25ae57f607",
-      "name": "/upbeat_dewdney",
-      "image": "ubuntu",
-      "created": 1658661916,
-      "port": 0,
-      "portType": "NA",
-      "state": "running",
-      "status": "Up 5 minutes"
-    },
-    {
-      "id": "8fd025f4da42f0694ffcf2cbd3ba04f82df9e7b8fff4c6784e6588bb3dcf88cb",
-      "name": "/frosty_tereshkova",
-      "image": "redis",
-      "created": 1658660078,
-      "port": 6379,
-      "portType": "tcp",
-      "state": "running",
-      "status": "Up 36 minutes"
-    }
-  ];
+  // final List<Map<String, dynamic>> dockers = const [
+  //   {
+  //     "id": "f5f83c51682790011659c352ae5716f56fa62eee921da45a46e14f25ae57f607",
+  //     "name": "/upbeat_dewdney",
+  //     "image": "ubuntu",
+  //     "created": 1658661916,
+  //     "port": 0,
+  //     "portType": "NA",
+  //     "state": "running",
+  //     "status": "Up 5 minutes"
+  //   },
+  //   {
+  //     "id": "8fd025f4da42f0694ffcf2cbd3ba04f82df9e7b8fff4c6784e6588bb3dcf88cb",
+  //     "name": "/frosty_tereshkova",
+  //     "image": "redis",
+  //     "created": 1658660078,
+  //     "port": 6379,
+  //     "portType": "tcp",
+  //     "state": "running",
+  //     "status": "Up 36 minutes"
+  //   },
+  //   {
+  //     "id": "f5f83c51682790011659c352ae5716f56fa62eee921da45a46e14f25ae57f607",
+  //     "name": "/upbeat_dewdney",
+  //     "image": "ubuntu",
+  //     "created": 1658661916,
+  //     "port": 0,
+  //     "portType": "NA",
+  //     "state": "running",
+  //     "status": "Up 5 minutes"
+  //   },
+  //   {
+  //     "id": "8fd025f4da42f0694ffcf2cbd3ba04f82df9e7b8fff4c6784e6588bb3dcf88cb",
+  //     "name": "/frosty_tereshkova",
+  //     "image": "redis",
+  //     "created": 1658660078,
+  //     "port": 6379,
+  //     "portType": "tcp",
+  //     "state": "running",
+  //     "status": "Up 36 minutes"
+  //   }
+  // ];
 
   final _formKey = GlobalKey<FormState>();
 
@@ -166,24 +179,14 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    SizeHelper sh = SizeHelper(context);
-    return Scaffold(
-      backgroundColor: primaryBlue,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: primaryBlue,
-        title: Text(
-          "Spinner",
-          style: appBarFont,
-        ),
-      ),
-      body: Padding(
+  _buildUI(SizeHelper sh, BuildContext context) {
+    var dockers = BlocProvider.of<ContainerCubit>(context).containers;
+    return Expanded(
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Stack(
           children: [
-            ListView(
+            Column(
               children: [
                 for (int i = 0; i < dockers.length; i++)
                   Padding(
@@ -191,13 +194,13 @@ class DashboardScreen extends StatelessWidget {
                       bottom: sh.hHelper(1.5),
                     ),
                     child: DashboardCard(
-                      status: dockers[i]['status'],
-                      state: dockers[i]['state'],
-                      name: dockers[i]['name'],
-                      createdAt: dockers[i]['created'],
-                      image: dockers[i]['image'],
-                      portType: dockers[i]['portType'],
-                      port: dockers[i]['port'],
+                      status: dockers[i].status,
+                      state: dockers[i].state,
+                      name: dockers[i].name,
+                      createdAt: dockers[i].created,
+                      image: dockers[i].image,
+                      portType: dockers[i].portType,
+                      port: dockers[i].port,
                     ),
                   )
               ],
@@ -248,6 +251,44 @@ class DashboardScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  _buildLoading(SizeHelper sh, BuildContext context) {
+    return Expanded(
+      child: Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(secondaryBlue),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SizeHelper sh = SizeHelper(context);
+    return Scaffold(
+      backgroundColor: primaryBlue,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: primaryBlue,
+        title: Text(
+          "Spinner",
+          style: appBarFont,
+        ),
+      ),
+      body: Column(
+        children: [
+          BlocBuilder<ContainerCubit, ContainerState>(
+            builder: (context, state) {
+              if (state is ContainerLoading) {
+                return _buildLoading(sh, context);
+              }
+              return _buildUI(sh, context);
+            },
+          ),
+        ],
       ),
     );
   }
