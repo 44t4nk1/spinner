@@ -22,4 +22,15 @@ class ContainerCubit extends Cubit<ContainerState> {
       emit(ContainersSuccess(data: r));
     });
   }
+
+  void deleteContainers(String id) async {
+    emit(ContainerInitial());
+    containers.removeWhere((element) => element.id == id);
+    emit(ContainersSuccess(data: containers));
+    int response = await _containerRepo.deleteContainers(id);
+    print(response);
+    if (response != 200) {
+      fetchContainers();
+    }
+  }
 }

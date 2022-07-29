@@ -15,4 +15,14 @@ class ContainerRepo {
       return Left(e.toString());
     }
   }
+
+  Future<int> deleteContainers(String id) async {
+    var url = Uri.parse('https://spinner-backend.jugaldb.com/stop');
+    var body = {"id": id};
+    var response = await http.post(
+      url,
+      body: jsonEncode(body),
+    );
+    return response.statusCode;
+  }
 }

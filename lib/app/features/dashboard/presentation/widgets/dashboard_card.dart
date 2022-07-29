@@ -6,6 +6,7 @@ import 'package:spinner/app/styles/fonts.dart';
 class DashboardCard extends StatelessWidget {
   const DashboardCard({
     Key? key,
+    required this.id,
     required this.status,
     required this.state,
     required this.name,
@@ -13,8 +14,10 @@ class DashboardCard extends StatelessWidget {
     required this.image,
     required this.portType,
     required this.port,
+    required this.onCallback,
   }) : super(key: key);
 
+  final String id;
   final String status;
   final String state;
   final String name;
@@ -22,6 +25,7 @@ class DashboardCard extends StatelessWidget {
   final int createdAt;
   final String portType;
   final int port;
+  final Function onCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,9 @@ class DashboardCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      onCallback(id);
+                    },
                     child: Icon(
                       CupertinoIcons.xmark,
                       color: primaryRed,

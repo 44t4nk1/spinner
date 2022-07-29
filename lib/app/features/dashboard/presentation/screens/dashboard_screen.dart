@@ -151,6 +151,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       bottom: sh.hHelper(1.5),
                     ),
                     child: DashboardCard(
+                      id: dockers[i].id,
                       status: dockers[i].status,
                       state: dockers[i].state,
                       name: dockers[i].name,
@@ -158,6 +159,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       image: dockers[i].image,
                       portType: dockers[i].portType,
                       port: dockers[i].port,
+                      onCallback: (id) {
+                        BlocProvider.of<ContainerCubit>(context)
+                            .deleteContainers(id);
+                      },
                     ),
                   )
               ],
