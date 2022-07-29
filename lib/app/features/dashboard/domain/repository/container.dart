@@ -18,10 +18,10 @@ class ContainerRepo {
 
   Future<int> deleteContainers(String id) async {
     var url = Uri.parse('https://spinner-backend.jugaldb.com/stop');
-    var body = {"id": id};
     var response = await http.post(
       url,
-      body: jsonEncode(body),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"id": id}),
     );
     return response.statusCode;
   }

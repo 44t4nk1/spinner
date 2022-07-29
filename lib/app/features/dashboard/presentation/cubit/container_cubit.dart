@@ -28,7 +28,6 @@ class ContainerCubit extends Cubit<ContainerState> {
     containers.removeWhere((element) => element.id == id);
     emit(ContainersSuccess(data: containers));
     int response = await _containerRepo.deleteContainers(id);
-    print(response);
     if (response != 200) {
       fetchContainers();
     }
