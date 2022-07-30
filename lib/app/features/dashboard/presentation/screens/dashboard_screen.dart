@@ -21,120 +21,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
+  SnackBar errorSnackBar(BuildContext context) {
+    SizeHelper sh = SizeHelper(context);
+    return SnackBar(
+      content: Text(
+        'Unable to create container',
+        style: snackErrorFont,
+      ),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.white,
+      margin: EdgeInsets.symmetric(
+        horizontal: sh.wHelper(5),
+        vertical: sh.hHelper(1),
+      ),
+    );
+  }
+
+  SnackBar snackBar(BuildContext context) {
+    SizeHelper sh = SizeHelper(context);
+    return SnackBar(
+      content: Text(
+        'Creating container...',
+        style: snackFont,
+      ),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.white,
+      margin: EdgeInsets.symmetric(
+        horizontal: sh.wHelper(5),
+        vertical: sh.hHelper(1),
+      ),
+    );
+  }
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController imageController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-
-  AlertDialog alertDialog() {
-    return AlertDialog(
-      backgroundColor: primaryBlue,
-      content: Builder(
-        builder: (context) {
-          SizeHelper sh = SizeHelper(context);
-
-          return SizedBox(
-            height: sh.hHelper(30),
-            width: sh.wHelper(80),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Enter container details",
-                    style: nameFont,
-                  ),
-                  SizedBox(
-                    height: sh.hHelper(2),
-                  ),
-                  TextFormField(
-                    controller: nameController,
-                    cursorColor: secondaryBlue,
-                    style: nameFont,
-                    decoration: InputDecoration(
-                      hintText: "Name",
-                      hintStyle: hintFont,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: secondaryBlue,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: secondaryBlue,
-                        ),
-                      ),
-                      filled: true,
-                    ),
-                  ),
-                  SizedBox(
-                    height: sh.hHelper(2),
-                  ),
-                  TextFormField(
-                    controller: imageController,
-                    cursorColor: secondaryBlue,
-                    style: nameFont,
-                    decoration: InputDecoration(
-                      hintText: "Image",
-                      hintStyle: hintFont,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: secondaryBlue,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: secondaryBlue,
-                        ),
-                      ),
-                      filled: true,
-                    ),
-                  ),
-                  SizedBox(
-                    height: sh.hHelper(2),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      height: sh.hHelper(6),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: secondaryBlue,
-                        border: Border.all(
-                          color: secondaryBlue,
-                          width: 2,
-                        ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(100),
-                        ),
-                      ),
-                      child: Text(
-                        "Create Container",
-                        style: buttonFont,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
 
   _buildUI(SizeHelper sh, BuildContext context) {
     var dockers = BlocProvider.of<ContainerCubit>(context).containers;
@@ -227,6 +149,122 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  AlertDialog alertDialog() {
+    return AlertDialog(
+      backgroundColor: primaryBlue,
+      content: Builder(
+        builder: (context) {
+          SizeHelper sh = SizeHelper(context);
+
+          return SizedBox(
+            height: sh.hHelper(30),
+            width: sh.wHelper(80),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Enter container details",
+                    style: nameFont,
+                  ),
+                  SizedBox(
+                    height: sh.hHelper(2),
+                  ),
+                  TextFormField(
+                    controller: nameController,
+                    cursorColor: secondaryBlue,
+                    style: nameFont,
+                    decoration: InputDecoration(
+                      hintText: "Name",
+                      hintStyle: hintFont,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: secondaryBlue,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: secondaryBlue,
+                        ),
+                      ),
+                      filled: true,
+                    ),
+                  ),
+                  SizedBox(
+                    height: sh.hHelper(2),
+                  ),
+                  TextFormField(
+                    controller: imageController,
+                    cursorColor: secondaryBlue,
+                    style: nameFont,
+                    decoration: InputDecoration(
+                      hintText: "Image",
+                      hintStyle: hintFont,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: secondaryBlue,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: secondaryBlue,
+                        ),
+                      ),
+                      filled: true,
+                    ),
+                  ),
+                  SizedBox(
+                    height: sh.hHelper(2),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      BlocProvider.of<ContainerCubit>(context).createContainers(
+                        imageController.text,
+                        nameController.text,
+                      );
+                      Navigator.of(context).pop();
+                      imageController.clear();
+                      nameController.clear();
+                    },
+                    child: Container(
+                      height: sh.hHelper(6),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: secondaryBlue,
+                        border: Border.all(
+                          color: secondaryBlue,
+                          width: 2,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(100),
+                        ),
+                      ),
+                      child: Text(
+                        "Create Container",
+                        style: buttonFont,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeHelper sh = SizeHelper(context);
@@ -242,12 +280,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       body: Column(
         children: [
-          BlocBuilder<ContainerCubit, ContainerState>(
+          BlocConsumer<ContainerCubit, ContainerState>(
             builder: (context, state) {
               if (state is ContainerLoading) {
                 return _buildLoading(sh, context);
               }
               return _buildUI(sh, context);
+            },
+            listener: (context, state) {
+              if (state is ContainerCreateLoading) {
+                ScaffoldMessenger.of(context).showSnackBar(snackBar(context));
+              }
+              if (state is ContainerCreateFailure) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(errorSnackBar(context));
+              }
+              if (state is ContainerCreateSuccess) {
+                BlocProvider.of<ContainerCubit>(context).fetchContainers();
+              }
             },
           ),
         ],

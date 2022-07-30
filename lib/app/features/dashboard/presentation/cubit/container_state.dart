@@ -11,6 +11,12 @@ class ContainerInitial extends ContainerState {}
 
 class ContainerLoading extends ContainerState {}
 
+class ContainerCreateLoading extends ContainerState {}
+
+class ContainerCreateSuccess extends ContainerState {}
+
+class ContainerCreateFailure extends ContainerState {}
+
 class ContainerFailure extends ContainerState {
   final String error;
 

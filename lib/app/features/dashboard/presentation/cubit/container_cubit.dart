@@ -32,4 +32,14 @@ class ContainerCubit extends Cubit<ContainerState> {
       fetchContainers();
     }
   }
+
+  void createContainers(String image, name) async {
+    emit(ContainerCreateLoading());
+    int response = await _containerRepo.createContainers(image, name);
+    if (response != 200) {
+      emit(ContainerCreateFailure());
+    } else {
+      emit(ContainerCreateSuccess());
+    }
+  }
 }

@@ -25,4 +25,14 @@ class ContainerRepo {
     );
     return response.statusCode;
   }
+
+  Future<int> createContainers(String image, name) async {
+    var url = Uri.parse('https://spinner-backend.jugaldb.com/start');
+    var response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"image": image, "name": name}),
+    );
+    return response.statusCode;
+  }
 }

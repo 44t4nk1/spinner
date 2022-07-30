@@ -34,6 +34,22 @@ TextStyle hintFont = GoogleFonts.montserrat(
   ),
 );
 
+TextStyle snackFont = GoogleFonts.montserrat(
+  textStyle: TextStyle(
+    color: primaryBlue,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  ),
+);
+
+TextStyle snackErrorFont = GoogleFonts.montserrat(
+  textStyle: const TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  ),
+);
+
 TextStyle stateFont = GoogleFonts.montserrat(
   textStyle: TextStyle(
     color: primaryGreen,
