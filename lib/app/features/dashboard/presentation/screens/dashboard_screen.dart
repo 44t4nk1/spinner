@@ -21,6 +21,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    SizeHelper sh = SizeHelper(context);
+    return Scaffold(
+      backgroundColor: primaryBlue,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: primaryBlue,
+        title: Text(
+          "Spinner",
+          style: appBarFont,
+        ),
+      ),
+      body: Column(
+        children: [
+          BlocConsumer<ContainerCubit, ContainerState>(
+            builder: (context, state) {
+              if (state is ContainerLoading) {
+                return _buildLoading(sh, context);
+              }
+              return _buildUI(sh, context);
+            },
+            listener: (context, state) {
+              if (state is ContainerCreateLoading) {
+                ScaffoldMessenger.of(context).showSnackBar(snackBar(context));
+              }
+              if (state is ContainerCreateFailure) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(errorSnackBar(context));
+              }
+              if (state is ContainerCreateSuccess) {
+                Future.delayed(const Duration(milliseconds: 4000), () {
+                  BlocProvider.of<ContainerCubit>(context).fetchContainers();
+                });
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   SnackBar errorSnackBar(BuildContext context) {
     SizeHelper sh = SizeHelper(context);
     return SnackBar(
@@ -229,11 +271,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   TextButton(
                     onPressed: () {
+                      Navigator.of(context).pop();
                       BlocProvider.of<ContainerCubit>(context).createContainers(
                         imageController.text,
                         nameController.text,
                       );
-                      Navigator.of(context).pop();
                       imageController.clear();
                       nameController.clear();
                     },
@@ -261,49 +303,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    SizeHelper sh = SizeHelper(context);
-    return Scaffold(
-      backgroundColor: primaryBlue,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: primaryBlue,
-        title: Text(
-          "Spinner",
-          style: appBarFont,
-        ),
-      ),
-      body: Column(
-        children: [
-          BlocConsumer<ContainerCubit, ContainerState>(
-            builder: (context, ContainerState state) {
-              if (state is ContainerLoading) {
-                return _buildLoading(sh, context);
-              }
-              return _buildUI(sh, context);
-            },
-            listener: (context, ContainerState state) {
-              if (state is ContainerCreateLoading) {
-                print("loading");
-                ScaffoldMessenger.of(context).showSnackBar(snackBar(context));
-              }
-              if (state is ContainerCreateFailure) {
-                print("fail");
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(errorSnackBar(context));
-              }
-              if (state is ContainerCreateSuccess) {
-                print("success");
-                BlocProvider.of<ContainerCubit>(context).fetchContainers();
-              }
-            },
-          ),
-        ],
       ),
     );
   }
