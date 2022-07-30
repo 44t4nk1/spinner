@@ -11,6 +11,8 @@ class ContainerInitial extends ContainerState {}
 
 class ContainerLoading extends ContainerState {}
 
+class ContainerEmpty extends ContainerState {}
+
 class ContainerCreateLoading extends ContainerState {}
 
 class ContainerCreateSuccess extends ContainerState {}

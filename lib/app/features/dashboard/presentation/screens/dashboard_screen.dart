@@ -102,35 +102,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   _buildUI(SizeHelper sh, BuildContext context) {
     var dockers = BlocProvider.of<ContainerCubit>(context).containers;
+    int dockerLength = dockers.length;
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Stack(
           children: [
-            ListView(
-              children: [
-                for (int i = 0; i < dockers.length; i++)
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: sh.hHelper(1.5),
-                    ),
-                    child: DashboardCard(
-                      id: dockers[i].id,
-                      status: dockers[i].status,
-                      state: dockers[i].state,
-                      name: dockers[i].name,
-                      createdAt: dockers[i].created,
-                      image: dockers[i].image,
-                      portType: dockers[i].portType,
-                      port: dockers[i].port,
-                      onCallback: (id) {
-                        BlocProvider.of<ContainerCubit>(context)
-                            .deleteContainers(id);
-                      },
+            dockerLength == 0
+                ? Expanded(
+                    child: Center(
+                      child: Text(
+                        "No Containers",
+                        style: buttonFont,
+                      ),
                     ),
                   )
-              ],
-            ),
+                : ListView(
+                    children: [
+                      for (int i = 0; i < dockers.length; i++)
+                        Padding(
+                          padding: EdgeInsets.only(
+                            bottom: sh.hHelper(1.5),
+                          ),
+                          child: DashboardCard(
+                            id: dockers[i].id,
+                            status: dockers[i].status,
+                            state: dockers[i].state,
+                            name: dockers[i].name,
+                            createdAt: dockers[i].created,
+                            image: dockers[i].image,
+                            portType: dockers[i].portType,
+                            port: dockers[i].port,
+                            onCallback: (id) {
+                              setState(() {
+                                dockerLength--;
+                              });
+                              BlocProvider.of<ContainerCubit>(context)
+                                  .deleteContainers(id);
+                            },
+                          ),
+                        )
+                    ],
+                  ),
             Positioned(
               bottom: sh.hHelper(5),
               left: sh.wHelper(14),
