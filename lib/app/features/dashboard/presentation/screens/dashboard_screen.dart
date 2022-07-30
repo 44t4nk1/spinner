@@ -121,12 +121,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ? SmartRefresher(
                     onRefresh: _onRefresh,
                     controller: _refreshController,
-                    child: Expanded(
-                      child: Center(
-                        child: Text(
-                          "No Containers",
-                          style: buttonFont,
-                        ),
+                    child: Center(
+                      child: Text(
+                        "No Containers",
+                        style: buttonFont,
                       ),
                     ),
                   )
