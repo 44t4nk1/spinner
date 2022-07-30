@@ -6,6 +6,7 @@ import 'package:spinner/app/features/dashboard/presentation/widgets/dashboard_ca
 import 'package:spinner/app/helpers/size.dart';
 import 'package:spinner/app/styles/colors.dart';
 import 'package:spinner/app/styles/fonts.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -19,6 +20,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     BlocProvider.of<ContainerCubit>(context).fetchContainers();
     super.initState();
+  }
+
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    BlocProvider.of<ContainerCubit>(context).fetchContainers();
+    _refreshController.refreshCompleted();
   }
 
   @override
@@ -109,40 +118,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Stack(
           children: [
             dockerLength == 0
-                ? Expanded(
-                    child: Center(
-                      child: Text(
-                        "No Containers",
-                        style: buttonFont,
+                ? SmartRefresher(
+                    onRefresh: _onRefresh,
+                    controller: _refreshController,
+                    child: Expanded(
+                      child: Center(
+                        child: Text(
+                          "No Containers",
+                          style: buttonFont,
+                        ),
                       ),
                     ),
                   )
-                : ListView(
-                    children: [
-                      for (int i = 0; i < dockers.length; i++)
-                        Padding(
-                          padding: EdgeInsets.only(
-                            bottom: sh.hHelper(1.5),
-                          ),
-                          child: DashboardCard(
-                            id: dockers[i].id,
-                            status: dockers[i].status,
-                            state: dockers[i].state,
-                            name: dockers[i].name,
-                            createdAt: dockers[i].created,
-                            image: dockers[i].image,
-                            portType: dockers[i].portType,
-                            port: dockers[i].port,
-                            onCallback: (id) {
-                              setState(() {
-                                dockerLength--;
-                              });
-                              BlocProvider.of<ContainerCubit>(context)
-                                  .deleteContainers(id);
-                            },
-                          ),
-                        )
-                    ],
+                : SmartRefresher(
+                    onRefresh: _onRefresh,
+                    controller: _refreshController,
+                    child: ListView(
+                      children: [
+                        for (int i = 0; i < dockers.length; i++)
+                          Padding(
+                            padding: EdgeInsets.only(
+                              bottom: sh.hHelper(1.5),
+                            ),
+                            child: DashboardCard(
+                              id: dockers[i].id,
+                              status: dockers[i].status,
+                              state: dockers[i].state,
+                              name: dockers[i].name,
+                              createdAt: dockers[i].created,
+                              image: dockers[i].image,
+                              portType: dockers[i].portType,
+                              port: dockers[i].port,
+                              onCallback: (id) {
+                                setState(() {
+                                  dockerLength--;
+                                });
+                                BlocProvider.of<ContainerCubit>(context)
+                                    .deleteContainers(id);
+                              },
+                            ),
+                          )
+                      ],
+                    ),
                   ),
             Positioned(
               bottom: sh.hHelper(5),
