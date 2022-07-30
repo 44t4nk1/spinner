@@ -281,21 +281,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Column(
         children: [
           BlocConsumer<ContainerCubit, ContainerState>(
-            builder: (context, state) {
+            builder: (context, ContainerState state) {
               if (state is ContainerLoading) {
                 return _buildLoading(sh, context);
               }
               return _buildUI(sh, context);
             },
-            listener: (context, state) {
+            listener: (context, ContainerState state) {
               if (state is ContainerCreateLoading) {
+                print("loading");
                 ScaffoldMessenger.of(context).showSnackBar(snackBar(context));
               }
               if (state is ContainerCreateFailure) {
+                print("fail");
                 ScaffoldMessenger.of(context)
                     .showSnackBar(errorSnackBar(context));
               }
               if (state is ContainerCreateSuccess) {
+                print("success");
                 BlocProvider.of<ContainerCubit>(context).fetchContainers();
               }
             },
